@@ -11,6 +11,7 @@ router.route("/test").post((req, res) => {
 
 // update user
 router.route("/update/:id").put(async (req, res) => {
+  
   userAPIs.updateUser(req,res)
 });
 // delete user

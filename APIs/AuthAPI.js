@@ -14,6 +14,7 @@ const createToken = (id) => {
 };
 
 const registerUser = async (req, res) => {
+  if(!userVerification(req)){
   try {
     const userName = await User.findOne({ userName: req.body.userName });
     const eMail = await User.findOne({ email: req.body.email });
@@ -36,9 +37,13 @@ const registerUser = async (req, res) => {
   } catch (e) {
     res.status(500).json(e.message);
   }
+}else{
+  res.status(403).json("Forbidden");
+}
 };
 
 const login = async (req, res) => {
+  if(!userVerification(req)){
   try {
     // search user reff to given email
     const user = await User.findOne({ email: req.body.email });
@@ -64,10 +69,15 @@ const login = async (req, res) => {
   } catch (e) {
     res.status(500).json(e.message);
   }
+}else{
+  res.status(403).json("Forbidden");
+}
 };
 
-const userVerification=(req)=>{
+const userVerification=(req)=>{ 
+  
   if (req.cookies.blogToken) { 
+    
   const verify = jwt.verify(req.cookies.blogToken, process.env.TOKEN);
   const user=User.findOne({_id:verify.id})
   if(user){
@@ -80,14 +90,21 @@ const userVerification=(req)=>{
 }
 }
 const getUserId=(req,res)=>{
-  if(userVerification({req})){
+  
+  if (req.cookies.blogToken) { 
     const verify = jwt.verify(req.cookies.blogToken, process.env.TOKEN)
-    return verify.id
+    const user=User.findOne({_id:verify.id})
+    if(user){
+      return verify.id
+    }else {
+      res.status(403).json("Forbidden");
+      return null
+    }
   }else{
     res.status(403).json("Forbidden");
     return null
-  }
-  
+  } 
+
 
 }
 
