@@ -11,9 +11,6 @@ router.route("/login").post((req, res) => {
   AuthAPIs.login(req, res);
 });
 
-// router.route("/test").all((req,res)=>{
-//  console.log(req.body)
 
-// })
 
 module.exports = router;

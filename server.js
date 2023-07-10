@@ -9,13 +9,13 @@ dotenv.config()
 const mongoose =require('mongoose')
 
 
-// import and add middleware(body-parser)
+// import and add middlewares
 const bodyParser=require('body-parser')
 app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 
-const coolieParser=require('cookie-parser')
-app.use(coolieParser())
+const cookieParser=require('cookie-parser')
+app.use(cookieParser())
 
 const helmet= require('helmet')
 app.use(helmet())
@@ -27,9 +27,11 @@ app.use(morgan('common'))
 const cors =require('cors');
 app.use(cors());
 
+ const auth=require("./Auth/Auth")
 
 // config routes
-app.use("/user",require('./Routes/User'))
+
+app.use("/user",auth,require('./Routes/User'))
 app.use("/",require('./Routes/Auth'))
 
 

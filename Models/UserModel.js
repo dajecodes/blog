@@ -14,15 +14,15 @@ const userSchema= new mongoose.Schema(
             required:true,
             unique:true
         },
-        first_name:{
+        firstName:{
             type:String,
             required:true,
         },
-        last_name:{
+        lastName:{
             type:String,
             required:true,
         },
-        phone_no:{
+        phoneNo:{
             type:String,
             default:'',
         },
@@ -31,7 +31,7 @@ const userSchema= new mongoose.Schema(
             required:true,
             min:6
         },
-        profile_pic:{
+        profilePic:{
             type:String,
             default:'',
         },
@@ -51,7 +51,7 @@ const userSchema= new mongoose.Schema(
             type:Array,
             default:[]
         },
-        fallowing:{
+        fallowings:{
             type:Array,
             default:[]
         }

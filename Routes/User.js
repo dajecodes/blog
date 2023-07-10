@@ -1,31 +1,32 @@
 const express = require("express");
-const User = require("../Models/UserModel");
-const userAPIs= require("../APIs/UserAPI")
+const userAPIs = require("../APIs/UserAPI");
 // create router
 const router = express.Router();
 
-router.route("/test").post((req, res) => {
-  console.log(req.body);
-  res.send('user test');
-});
-
 // update user
-router.route("/update/:id").put(async (req, res) => {
-  
-  userAPIs.updateUser(req,res)
+router.route("/update").post(async (req, res) => {
+  console.log("update call")
+  userAPIs.updateUser(req, res);
 });
 // delete user
-router.route("/delete/:id").delete(async (req,res)=>{
-     userAPIs.deleteUser(req,res)  
-  
+router.route("/delete/:id").delete(async (req, res) => {
+  userAPIs.deleteUser(req, res);
 });
 
 // get user
-router.route("/te").get(async(req,res)=>{
-    res.send("get")
-})
+router.route("/get/:id").get(async (req, res) => {
+  userAPIs.getUser(req, res);
+});
+
 // fallow user
+router.route("/fallow/:id").get((req, res) => {
+  userAPIs.fallowUser(req, res);
+});
+
 // unfallow user
+router.route("/unfallow/:id").get((req, res) => {
+  userAPIs.unfallowUser(req, res);
+});
 
 // export router
 module.exports = router;
