@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const AuthAPIs = require("../APIs/AuthAPI");
 
 // user registration
@@ -10,7 +9,5 @@ router.route("/register").post((req, res) => {
 router.route("/login").post((req, res) => {
   AuthAPIs.login(req, res);
 });
-
-
 
 module.exports = router;

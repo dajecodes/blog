@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 
 
 const createToken =(id) => {
-  console.log('test')
-  return jwt.sign({id: id }, process.env.SECRET_KEY);
+  return jwt.sign({exp:Math.floor(Date.now()/1000)+(60*60*process.env.TOKEN_EXP_DUE),id: id }, process.env.SECRET_KEY);
 };
 
 const verifyToken = (token) => {

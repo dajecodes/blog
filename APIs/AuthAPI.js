@@ -37,8 +37,7 @@ const login = async (req, res) => {
         // if user exist check password
         const validate = bcryptS.comparePassword(req.body.password, user.password);
         if (validate) {
-          // create token and save to db an send as cookie    // 
-          console.log('valdate')         
+          // create token and save to db an send as cookie    //                 
           const token = JWTStatergy.createToken(user._id)          
           res.header('authorization',token)          
           res.status(200).json("Login Successfull");
@@ -52,62 +51,14 @@ const login = async (req, res) => {
  
 };
 
-const userVerification = (req) => {
-  try{
-  if (req.cookies.blogToken) {
-    const verify = JWTStatergy.verify(req.cookies.blogToken, process.env.TOKEN);
-    const user = User.findOne({ _id: verify.id });
-    if (user) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}catch(e){
-  console.log(e.message)
-}
-};
-const isUserId=async (id)=>{
-  try{
-  const user = await User.findById(id);
-  console.log(user)
-  if(user){
-    return true
-  }else{
-    return false
-  }
-}catch(e){
-  console.log(e.message)
-}
-}
-const getUserId =(req, res, status = true) => {
-  console.log(req)
-  if (req.cookies.blogToken) {
-    const verify = jwt.verify(req.cookies.blogToken, process.env.TOKEN);    
-    if (isUserId(verify.id)) {
-      return {id:verify.id};
-    } else {
-      if (status) {
-        res.status(403).json("Forbidden");
-      }
+// Forget password
 
-      return {id:null};
-    }
-  } else {
-    if (status) {
-      res.status(403).json("Forbidden");
-    }
-    return {id:null};
-  }
-};
+
+
+
 
 module.exports = { 
   registerUser,
-  login,
-  userVerification,
-  getUserId,
-  isUserId,
+  login,  
 };
      

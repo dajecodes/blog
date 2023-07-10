@@ -5,8 +5,7 @@ const router = express.Router();
 
 // update user
 router.route("/update").post(async (req, res) => {
-  console.log("update call")
-  userAPIs.updateUser(req, res);
+   userAPIs.updateUser(req, res);
 });
 // delete user
 router.route("/delete/:id").delete(async (req, res) => {

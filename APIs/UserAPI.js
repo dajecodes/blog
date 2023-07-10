@@ -1,7 +1,6 @@
 const User = require("../Models/UserModel");
-const authAPIs = require("./AuthAPI");
 const bcryptS = require("../Common/Statergie/BCryptStatergy");
-
+// update User
 const updateUser = async (req, res) => {
   try {
     if (req.body.password) {
@@ -15,7 +14,7 @@ const updateUser = async (req, res) => {
     res.status(500).json(e.message);
   }
 };
-
+// detele user
 const deleteUser = async (req, res) => {
   try {
       await User.findByIdAndDelete(req.userId);
@@ -25,46 +24,28 @@ const deleteUser = async (req, res) => {
     res.status(500).json(e.message);
   }
 };
+// get user infromation
 const getUser = async (req, res) => {
-  const { id } = authAPIs.getUserId(req, res, false);
+    
   try {
     const user = await User.findById(req.params.id);
-    if (id) {
-      if (id === req.params.id) {
-        const {
-          userName,
-          firstName,
-          lastName,
-          profilePic,
-          post,
-          phoneNo,
-          fallowers,
-          fallowing,
-          ...others
-        } = user;
-        res.send({
-          userName,
-          firstName,
-          lastName,
-          profilePic,
-          post,
-          phoneNo,
-          fallowers,
-          fallowing,
-        });
+   
+      if (req.userId === req.params.id) {
+        const {userName,firstName,lastName,profilePic,post,phoneNo,fallowers,fallowing,...others} = user;
+        res.send({userName,firstName,lastName,profilePic,post,phoneNo,fallowers,fallowing,});
       } else {
-        const { userName, firstName, lastName, profilePic, post, ...others } =
-          user;
+        const { userName, firstName, lastName, profilePic, post, ...others } =user;
         res.send({ userName, firstName, lastName, profilePic, post });
       }
-    } else {
-      const { userName, firstName, profilePic, ...others } = user;
-      res.send({ userName, firstName, profilePic });
-    }
+    
   } catch (e) {
     res.status(500).json(e.message);
   }
 };
+
+// fallow user
+
+
 const fallowUser = async (req, res) => {
   const { id } = authAPIs.getUserId(req, res);
   try {
@@ -96,15 +77,9 @@ const fallowUser = async (req, res) => {
     res.status(500).json(e.message);
   }
 };
+// unfallow user 
 const unfallowUser = (req, res) => {
-  const { currentUserId } = authAPIs.getUserId(req, res);
-  const unfallowUserId = req.params.id;
-  if (currentUserId) {
-    if (authAPIs.isUserId(unfallowUserId)) {
-    } else {
-      res.status(500).json("error");
-    }
-  }
+ 
 };
 
 module.exports = {
