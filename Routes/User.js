@@ -19,6 +19,7 @@ router.route("/get/:id").get(async (req, res) => {
 
 // fallow user
 router.route("/fallow/:id").get((req, res) => {
+  
   userAPIs.fallowUser(req, res);
 });
 

@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const bcryptS = require("../Common/Statergie/BCryptStatergy");
 const User = require("../Models/UserModel");
 const JWTStatergy = require('../Common/Statergie/JWTStatergy')

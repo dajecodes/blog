@@ -43,7 +43,7 @@ const userSchema= new mongoose.Schema(
             type:String,
             default:'token'
         },
-        post:{
+        posts:{
             type:Array,
             default:[]
         },
